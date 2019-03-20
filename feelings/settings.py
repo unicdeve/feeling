@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'thoughts',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'feelings/assets')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets'),]
+
+# Authentication
+LOGIN_URL = 'users:login'
+
+LOGIN_REDIRECT_URL = 'users:dashboard'
