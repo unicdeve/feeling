@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, CreateView, TemplateView, DetailView
+from django.views.generic import FormView, CreateView, DetailView
 
 from braces.views import SelectRelatedMixin
 
@@ -31,3 +31,5 @@ class SignUpView(CreateView):
   form_class = UserCreationForm
   template_name = 'users/signup.html'
   success_url = 'users:dashboard'
+
+

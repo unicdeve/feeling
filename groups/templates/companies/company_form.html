@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+  Create a new Company | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="mb-4">Create a new Company</h3>
+      <form action="" method="post">
+        {% bootstrap_form form %}
+        {% csrf_token %}
+        <input type="submit" value="Create" class="btn btn-outline-primary">
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2>Create a new Company!</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta blanditiis eveniet maiores. Nihil aspernatur veritatis temporibus! Praesentium nesciunt recusandae, quas maiores sapiente, perspiciatis numquam vitae error repellendus quam quod neque esse totam minus blanditiis itaque laborum eaque mollitia voluptatum necessitatibus! Quisquam necessitatibus officia consequuntur architecto at commodi officiis aut? Quam!</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
