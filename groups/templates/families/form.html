@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+  {{headline}} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="mb-4">{{ headline }}</h3>
+      <form action="" method="post">
+        {% bootstrap_form form %}
+        {% csrf_token %}
+        <input type="submit" value="Save" class="btn btn-outline-primary">
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h3>{{ object.name }}</h3>
+      {% if object.pk %}
+        {{ object.description|linebreaks }}
+      {% else %}
+        <h3>{{ headline }}</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta blanditiis eveniet maiores. Nihil aspernatur veritatis temporibus! Praesentium nesciunt recusandae, quas maiores sapiente, perspiciatis numquam vitae error repellendus quam quod neque esse totam minus blanditiis itaque laborum eaque mollitia voluptatum necessitatibus! Quisquam necessitatibus officia consequuntur architecto at commodi officiis aut? Quam!</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

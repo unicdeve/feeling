@@ -21,10 +21,31 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-          </li>
-          
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Company
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for company in user.companies.all %}
+                  <a class="dropdown-item" href="{% url 'groups:companies:detail' slug=company.slug %}">{{company.name}}</a>
+                {% endfor %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'groups:companies:create' %}">Create New</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Family
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for family in user.families.all %}
+                  <a class="dropdown-item" href="{% url 'groups:families:detail' slug=family.slug %}">{{family.name}}</a>
+                {% endfor %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'groups:families:create' %}">Create New</a>
+              </div>
+            </li>
         </ul>
         {% if not user.is_authenticated %}
         <ul class="navbar-nav navbar-right">
@@ -38,7 +59,7 @@
         </ul>
 
         {% else %}
-          <a href="{% url 'users:dashboard' %}" class="btn btn-outline-success">Dashboard</a>
+          <a href="{% url 'users:dashboard' %}" class="btn btn-outline-success mr-2">Dashboard</a>
           <a href="{% url 'users:logout' %}" class="btn btn-outline-success">Logout</a>
         {% endif %}
       </div>
