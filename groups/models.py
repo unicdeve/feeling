@@ -42,7 +42,7 @@ class Invite(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.pk:
-      self.uuid = uuid.uuid4.hex
+      self.uuid = uuid.uuid4().hex
     super().save(*args, **kwargs)
 
 
