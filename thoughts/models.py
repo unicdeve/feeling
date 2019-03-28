@@ -28,7 +28,7 @@ CONDITIONS = (
 
 # Create your models here.
 class Thought(models.Model):
-    user = models.ForeignKey(User, related_name='thoughts')
+    user = models.ForeignKey(User, related_name='thoughts',)
     recorder_at = models.DateTimeField(default=timezone.now, editable=False)
     conditions = models.IntegerField(choices=CONDITIONS)
     notes = models.TextField(blank=True, default='')

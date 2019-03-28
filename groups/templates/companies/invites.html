@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+  Invites | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <ul>
+        {% for invite in object_list %}
+          <li><a href="">{{ invite.company }} by {{invite.from_user}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-6">
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

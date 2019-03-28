@@ -1,5 +1,11 @@
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, DetailView, FormView
+from django.views.generic import (
+  CreateView, 
+  UpdateView, 
+  DetailView, 
+  FormView,
+  ListView
+)
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -60,3 +66,9 @@ class Detail(LoginRequiredMixin, FormView):
     models.CompanyInvite.objects.create(from_user=self.request.user, to_user=form.invitee, company=self.get_object())
     return response
 
+class Invites(LoginRequiredMixin, ListView):
+  model = models.CompanyInvite
+  template_name = 'companies/invites.html'
+
+  def get_queryset(self):
+    return self.request.user.companyinvite_received.all()
