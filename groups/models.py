@@ -6,6 +6,9 @@ import uuid
 
 from autoslug import AutoSlugField
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 class Group(models.Model):
   created_at = models.DateTimeField(default=timezone.now)
   created_by = models.ForeignKey(User, related_name='%(class)s_created')
@@ -70,3 +73,9 @@ class FamilyInvite(Invite):
 
   def __str__(self):
     return f'{self.to_user} invited to {self.family} by {self.from_user}'
+
+@receiver(post_save, sender=CompanyInvite)
+def join_company(sender, instance, created, **kwargs):
+  if not created:
+    if (instance.status == 1):
+      instance.company.members.add(instance.to_user)
