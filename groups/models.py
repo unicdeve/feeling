@@ -34,11 +34,17 @@ class Company(Group):
   def __str__(self):
     return self.name
 
+INVITE_STATUS = (
+  (0, 'Pending'),
+  (1, 'Accepted'),
+  (2, 'Rejected')
+)
+
 class Invite(models.Model):
   from_user = models.ForeignKey(User, related_name='%(class)s_created')
   to_user = models.ForeignKey(User, related_name='%(class)s_received')
-  accepted = models.BooleanField(default=False)
-  uuid = models.CharField(max_length=32, default='')
+  status = models.IntegerField(default=0, choices=INVITE_STATUS)
+  uuid = models.CharField(max_length=32, default='', blank=True)
 
   class Meta:
     abstract = True

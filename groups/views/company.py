@@ -4,8 +4,11 @@ from django.views.generic import (
   UpdateView, 
   DetailView, 
   FormView,
-  ListView
+  ListView,
+  RedirectView
 )
+
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -71,4 +74,23 @@ class Invites(LoginRequiredMixin, ListView):
   template_name = 'companies/invites.html'
 
   def get_queryset(self):
-    return self.request.user.companyinvite_received.all()
+    return self.request.user.companyinvite_received.filter(status=0)
+
+class InviteResponse(LoginRequiredMixin,RedirectView):
+  url = reverse_lazy('groups:companies:invites')
+
+  def get(selg, request, *args, **kwargs):
+    invite = get_object_or_404(
+      models.CompanyInvite,
+      to_user = request.user,
+      uuid = kwargs.get('code'),
+      status = 0
+    )
+    if kwargs.get('response') == 'accept':
+      invite.status = 1
+    else:
+      invite.status = 2
+
+    invite.save()
+
+    return super().get(request, *args, **kwargs)
