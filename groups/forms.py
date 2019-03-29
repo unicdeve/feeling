@@ -35,3 +35,6 @@ class FamilyInviteForm(forms.Form):
     except models.User.DoesNotExist:
       raise ValidationError('No such user')
     return data
+
+class LeaveForm(forms.Form):
+  pass
