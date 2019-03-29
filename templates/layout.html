@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load group_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,28 +25,28 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Company
+                Company {% invites_dot 'comapny' %}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for company in user.companies.all %}
                   <a class="dropdown-item" href="{% url 'groups:companies:detail' slug=company.slug %}">{{company.name}}</a>
                 {% endfor %}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'groups:companies:invites' %}">Invitations</a>
+                <a class="dropdown-item" href="{% url 'groups:companies:invites' %}">Invitations {% invites_badge 'comapny' %}</a>
                 <a class="dropdown-item" href="{% url 'groups:companies:create' %}">Create New</a>
               </div>
             </li>
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Family
+                Family {% invites_dot 'family' %}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for family in user.families.all %}
                   <a class="dropdown-item" href="{% url 'groups:families:detail' slug=family.slug %}">{{family.name}}</a>
                 {% endfor %}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'groups:families:invites' %}">Invitations</a>
+                <a class="dropdown-item" href="{% url 'groups:families:invites' %}">Invitations {% invites_badge 'family' %}</a>
                 <a class="dropdown-item" href="{% url 'groups:families:create' %}">Create New</a>
               </div>
             </li>

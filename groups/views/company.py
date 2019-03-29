@@ -79,7 +79,7 @@ class Leave(LoginRequiredMixin, SetHeadlineMixin, FormView):
       self.object = self.request.user.companies.filter(
         slug=self.kwargs.get('slug')
       ).exclude(created_by=self.request.user).get()
-    except models.Family.DoesNotExist:
+    except models.Company.DoesNotExist:
       raise Http404
 
   def get_headline(self):
