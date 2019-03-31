@@ -26,6 +26,7 @@ CONDITIONS = (
     (90, 'Paranoid'),
 )
 
+
 # Create your models here.
 class Thought(models.Model):
     user = models.ForeignKey(User, related_name='thoughts',)
