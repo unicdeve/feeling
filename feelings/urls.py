@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^users/', include(user_urls, namespace='users')),
     url(r'^thoughts/', include(thoughts_urls, namespace='thoughts')),
     url(r'^groups/', include(group_urls, namespace='groups')),
-    url(r'$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if settings.DEBUG:
