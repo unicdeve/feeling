@@ -1,18 +1,30 @@
 from django.contrib.auth.models import User
 
-from rest_framework import routers, serializers, viewsets
+from rest_framework import serializers
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    password = serializers.HiddenField(default='')
+    thoughts = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='thoughts-detail'
+    )
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'first_name', 'last_name', 'email',
+                  'last_login', 'date_joined', 'password', 'thoughts')
 
+        read_only_fields = ('last_login', 'date_joined')
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def create(self, validated_data):
+        validated_data['password'] = self.context['request'].data['password']
+        user = User.objects.create_user(**validated_data)
+        return user
 
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+    def update(self, instance, validated_data):
+        try:
+            del validated_data['username']
+        except KeyError:
+            pass
+        return super().update(instance, validated_data)
